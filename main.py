@@ -5,12 +5,19 @@ import random
 import sys
 import db_handler
 from datetime import datetime
+import os.path
 
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
-DATABASE = []
+if os.path.isfile("DATABASE.db"):
+    with open('DATABASE.db', "r") as fp:
+        DATABASE = json.load(fp)
+        fp.close()
+else:
+    DATABASE = []
+
 ADMIN_KEY = "qwerty"
 db_handle = db_handler.db_handler()
 
@@ -37,12 +44,20 @@ def registration():
             new_js['position'] = js['position']
             new_js['response'] = 'OK'
             DATABASE.append(new_js)
+            with open('DATABASE.db', "w") as fp:
+                fp.truncate(0)
+                json.dump(DATABASE, fp)
+                fp.close()
             return json.dumps(new_js), 201
 
         if request.method == 'DELETE':
             for record in DATABASE:
                 if record['id'] == js['id']:
                     DATABASE.remove(record)
+                    with open('DATABASE.db', "w") as fp:
+                        fp.truncate(0)
+                        json.dump(DATABASE, fp)
+                        fp.close()
                     return json.dumps({'response': "OK"}), 200
             return json.dumps({'response': "ID NOT FOUND"}), 404
     except:
@@ -57,21 +72,24 @@ def attend():
         for record in DATABASE:
             if record['id'] == js['id']:
                 print('Student ' + str(js['student_id']) + ' reports presence!')
-                """now = datetime.now()
-                dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
+                now = datetime.now()
+                dt_string = now.strftime("%Y%m%d %H:%M:%S")
                 db_handle.execute_modify(
                     "declare @var1 int "
                     "set @var1 = (select id "
                     "from Sale "
-                    "where nazwa='" + record['room'] + "')"
+                    "where nazwa='" + str(record['room']) + "')"
                     "declare @var2 int "
                     "set @var2 = (select id " 
                     "from Zajecia "
-                    "where (" + dt_string + " between rozpoczecie and zakonczenie) "
+                    "where ('" + str(dt_string) + "' between rozpoczecie and zakonczenie) "
                     "and (id_sali=@var1))"
-                    "insert into Obecnosci values (" + js['student_id'] + ", @var2, 1, 0))"
-                )"""
-                return json.dumps({'response': "OK"}), 201
+                    "insert into Obecnosci (id_studenta, id_zajec, obecnosc) values (" +str(js['student_id'])+", @var2, 1)"
+                )
+                result = db_handle.execute_query(
+                    "select imie, nazwisko from Studenci where indeks=" + str(js['student_id'])
+                )
+                return json.dumps({'response': "OK", "name": result[0][0], "surname": result[0][1]}), 201
         return json.dumps({'response': "ID NOT FOUND"}), 404
     except:
         return json.dumps({'response': "INTERNAL SERVER ERROR"}), 500
@@ -84,20 +102,19 @@ def getinfo():
 
         for record in DATABASE:
             if record['id'] == js['id']:
-                """now = datetime.now()
-                dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
+                now = datetime.now()
+                dt_string = now.strftime("%Y%m%d %H:%M:%S")
                 result = db_handle.execute_query(
                     "declare @var1 int "
                     "set @var1 = (select id "
                     "from Sale "
-                    "where nazwa='" + record['room'] + "')"
+                    "where nazwa='" + str(record['room']) + "')"
                     "select pro.imie, pro.nazwisko, prz.nazwa "
-                    "from Zajecia as z, Grupy as g, Przedmioty as prz, Prowadzacy as pro "
-                    "where (" + dt_string + " between z.rozpoczecie and z.zakonczenie) and (z.id_sali=@var1) "
-                    "and (g.id=z.id_grupy) and (prz.id=g.id_przedmiotu) and (pro.id=g.id_prowadzacego)"
-                )"""
-                # TODO sprawdz format wyniku query
-                return json.dumps({'response': "OK"}), 201
+                    "from Zajecia as z, Przedmioty as prz, Prowadzacy as pro "
+                    "where ('" + str(dt_string) + "' between z.rozpoczecie and z.zakonczenie) and (z.id_sali=@var1) "
+                    "and (prz.id=z.id_przedmiotu) and (pro.id=prz.id_prowadzacego)"
+                )
+                return json.dumps({'response': "OK", "pro_imie": result[0][0], "pro_nazwisko": result[0][1], "prz_nazwa": result[0][2]}), 201
         return json.dumps({'response': "ID NOT FOUND"}), 404
     except:
         return json.dumps({'response': "INTERNAL SERVER ERROR"}), 500
