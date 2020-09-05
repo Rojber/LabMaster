@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PZModelStoreContainer" CdmEntityContainer="PZEntities">
+    <EntitySetMapping Name="Grupy">
+      <EntityTypeMapping TypeName="PZModel.Grupy">
+        <MappingFragment StoreEntitySet="Grupy">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Obecnosci">
+      <EntityTypeMapping TypeName="PZModel.Obecnosci">
+        <MappingFragment StoreEntitySet="Obecnosci">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_studenta" ColumnName="id_studenta" />
+          <ScalarProperty Name="id_zajec" ColumnName="id_zajec" />
+          <ScalarProperty Name="obecnosc" ColumnName="obecnosc" />
+          <ScalarProperty Name="usprawiedliwienie" ColumnName="usprawiedliwienie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prowadzacy">
+      <EntityTypeMapping TypeName="PZModel.Prowadzacy">
+        <MappingFragment StoreEntitySet="Prowadzacy">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="imie" ColumnName="imie" />
+          <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+          <ScalarProperty Name="mail" ColumnName="mail" />
+          <ScalarProperty Name="adname" ColumnName="adname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Przedmioty">
+      <EntityTypeMapping TypeName="PZModel.Przedmioty">
+        <MappingFragment StoreEntitySet="Przedmioty">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_prowadzacego" ColumnName="id_prowadzacego" />
+          <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sale">
+      <EntityTypeMapping TypeName="PZModel.Sale">
+        <MappingFragment StoreEntitySet="Sale">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Studenci">
+      <EntityTypeMapping TypeName="PZModel.Studenci">
+        <MappingFragment StoreEntitySet="Studenci">
+          <ScalarProperty Name="indeks" ColumnName="indeks" />
+          <ScalarProperty Name="imie" ColumnName="imie" />
+          <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+          <ScalarProperty Name="mail" ColumnName="mail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudenciGrupy">
+      <EntityTypeMapping TypeName="PZModel.StudenciGrupy">
+        <MappingFragment StoreEntitySet="StudenciGrupy">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_studenta" ColumnName="id_studenta" />
+          <ScalarProperty Name="id_grupy" ColumnName="id_grupy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Zajecia">
+      <EntityTypeMapping TypeName="PZModel.Zajecia">
+        <MappingFragment StoreEntitySet="Zajecia">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_grupy" ColumnName="id_grupy" />
+          <ScalarProperty Name="rozpoczecie" ColumnName="rozpoczecie" />
+          <ScalarProperty Name="zakonczenie" ColumnName="zakonczenie" />
+          <ScalarProperty Name="id_przedmiotu" ColumnName="id_przedmiotu" />
+          <ScalarProperty Name="id_sali" ColumnName="id_sali" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

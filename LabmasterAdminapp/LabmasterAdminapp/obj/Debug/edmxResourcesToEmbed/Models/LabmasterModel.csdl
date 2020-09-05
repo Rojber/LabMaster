@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PZModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Grupy">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nazwa" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="StudenciGrupy" Relationship="Self.FK__StudenciG__id_gr__29221CFB" FromRole="Grupy" ToRole="StudenciGrupy" />
+    <NavigationProperty Name="Zajecia" Relationship="Self.FK__Zajecia__id_grup__236943A5" FromRole="Grupy" ToRole="Zajecia" />
+  </EntityType>
+  <EntityType Name="Obecnosci">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_studenta" Type="Int32" />
+    <Property Name="id_zajec" Type="Int32" />
+    <Property Name="obecnosc" Type="Boolean" />
+    <Property Name="usprawiedliwienie" Type="Boolean" />
+    <NavigationProperty Name="Studenci" Relationship="Self.FK__Obecnosci__id_st__2BFE89A6" FromRole="Obecnosci" ToRole="Studenci" />
+    <NavigationProperty Name="Zajecia" Relationship="Self.FK__Obecnosci__id_za__2CF2ADDF" FromRole="Obecnosci" ToRole="Zajecia" />
+  </EntityType>
+  <EntityType Name="Prowadzacy">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="imie" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nazwisko" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="mail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="adname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Przedmioty" Relationship="Self.FK__Przedmiot__id_pr__19DFD96B" FromRole="Prowadzacy" ToRole="Przedmioty" />
+  </EntityType>
+  <EntityType Name="Przedmioty">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_prowadzacego" Type="Int32" />
+    <Property Name="nazwa" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Prowadzacy" Relationship="Self.FK__Przedmiot__id_pr__19DFD96B" FromRole="Przedmioty" ToRole="Prowadzacy" />
+    <NavigationProperty Name="Zajecia" Relationship="Self.FK__Zajecia__id_prze__245D67DE" FromRole="Przedmioty" ToRole="Zajecia" />
+  </EntityType>
+  <EntityType Name="Sale">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nazwa" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Zajecia" Relationship="Self.FK__Zajecia__id_sali__25518C17" FromRole="Sale" ToRole="Zajecia" />
+  </EntityType>
+  <EntityType Name="Studenci">
+    <Key>
+      <PropertyRef Name="indeks" />
+    </Key>
+    <Property Name="indeks" Type="Int32" Nullable="false" />
+    <Property Name="imie" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nazwisko" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="mail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Obecnosci" Relationship="Self.FK__Obecnosci__id_st__2BFE89A6" FromRole="Studenci" ToRole="Obecnosci" />
+    <NavigationProperty Name="StudenciGrupy" Relationship="Self.FK__StudenciG__id_st__282DF8C2" FromRole="Studenci" ToRole="StudenciGrupy" />
+  </EntityType>
+  <EntityType Name="StudenciGrupy">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_studenta" Type="Int32" />
+    <Property Name="id_grupy" Type="Int32" />
+    <NavigationProperty Name="Grupy" Relationship="Self.FK__StudenciG__id_gr__29221CFB" FromRole="StudenciGrupy" ToRole="Grupy" />
+    <NavigationProperty Name="Studenci" Relationship="Self.FK__StudenciG__id_st__282DF8C2" FromRole="StudenciGrupy" ToRole="Studenci" />
+  </EntityType>
+  <EntityType Name="Zajecia">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_grupy" Type="Int32" />
+    <Property Name="rozpoczecie" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="zakonczenie" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="id_przedmiotu" Type="Int32" />
+    <Property Name="id_sali" Type="Int32" />
+    <NavigationProperty Name="Grupy" Relationship="Self.FK__Zajecia__id_grup__236943A5" FromRole="Zajecia" ToRole="Grupy" />
+    <NavigationProperty Name="Obecnosci" Relationship="Self.FK__Obecnosci__id_za__2CF2ADDF" FromRole="Zajecia" ToRole="Obecnosci" />
+    <NavigationProperty Name="Przedmioty" Relationship="Self.FK__Zajecia__id_prze__245D67DE" FromRole="Zajecia" ToRole="Przedmioty" />
+    <NavigationProperty Name="Sale" Relationship="Self.FK__Zajecia__id_sali__25518C17" FromRole="Zajecia" ToRole="Sale" />
+  </EntityType>
+  <Association Name="FK__StudenciG__id_gr__29221CFB">
+    <End Role="Grupy" Type="Self.Grupy" Multiplicity="0..1" />
+    <End Role="StudenciGrupy" Type="Self.StudenciGrupy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grupy">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="StudenciGrupy">
+        <PropertyRef Name="id_grupy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Zajecia__id_grup__236943A5">
+    <End Role="Grupy" Type="Self.Grupy" Multiplicity="0..1" />
+    <End Role="Zajecia" Type="Self.Zajecia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grupy">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Zajecia">
+        <PropertyRef Name="id_grupy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Obecnosci__id_st__2BFE89A6">
+    <End Role="Studenci" Type="Self.Studenci" Multiplicity="0..1" />
+    <End Role="Obecnosci" Type="Self.Obecnosci" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Studenci">
+        <PropertyRef Name="indeks" />
+      </Principal>
+      <Dependent Role="Obecnosci">
+        <PropertyRef Name="id_studenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Obecnosci__id_za__2CF2ADDF">
+    <End Role="Zajecia" Type="Self.Zajecia" Multiplicity="0..1" />
+    <End Role="Obecnosci" Type="Self.Obecnosci" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Zajecia">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Obecnosci">
+        <PropertyRef Name="id_zajec" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Przedmiot__id_pr__19DFD96B">
+    <End Role="Prowadzacy" Type="Self.Prowadzacy" Multiplicity="0..1" />
+    <End Role="Przedmioty" Type="Self.Przedmioty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prowadzacy">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Przedmioty">
+        <PropertyRef Name="id_prowadzacego" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Zajecia__id_prze__245D67DE">
+    <End Role="Przedmioty" Type="Self.Przedmioty" Multiplicity="0..1" />
+    <End Role="Zajecia" Type="Self.Zajecia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Przedmioty">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Zajecia">
+        <PropertyRef Name="id_przedmiotu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Zajecia__id_sali__25518C17">
+    <End Role="Sale" Type="Self.Sale" Multiplicity="0..1" />
+    <End Role="Zajecia" Type="Self.Zajecia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sale">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Zajecia">
+        <PropertyRef Name="id_sali" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StudenciG__id_st__282DF8C2">
+    <End Role="Studenci" Type="Self.Studenci" Multiplicity="0..1" />
+    <End Role="StudenciGrupy" Type="Self.StudenciGrupy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Studenci">
+        <PropertyRef Name="indeks" />
+      </Principal>
+      <Dependent Role="StudenciGrupy">
+        <PropertyRef Name="id_studenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PZEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Grupy" EntityType="Self.Grupy" />
+    <EntitySet Name="Obecnosci" EntityType="Self.Obecnosci" />
+    <EntitySet Name="Prowadzacy" EntityType="Self.Prowadzacy" />
+    <EntitySet Name="Przedmioty" EntityType="Self.Przedmioty" />
+    <EntitySet Name="Sale" EntityType="Self.Sale" />
+    <EntitySet Name="Studenci" EntityType="Self.Studenci" />
+    <EntitySet Name="StudenciGrupy" EntityType="Self.StudenciGrupy" />
+    <EntitySet Name="Zajecia" EntityType="Self.Zajecia" />
+    <AssociationSet Name="FK__StudenciG__id_gr__29221CFB" Association="Self.FK__StudenciG__id_gr__29221CFB">
+      <End Role="Grupy" EntitySet="Grupy" />
+      <End Role="StudenciGrupy" EntitySet="StudenciGrupy" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Zajecia__id_grup__236943A5" Association="Self.FK__Zajecia__id_grup__236943A5">
+      <End Role="Grupy" EntitySet="Grupy" />
+      <End Role="Zajecia" EntitySet="Zajecia" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Obecnosci__id_st__2BFE89A6" Association="Self.FK__Obecnosci__id_st__2BFE89A6">
+      <End Role="Studenci" EntitySet="Studenci" />
+      <End Role="Obecnosci" EntitySet="Obecnosci" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Obecnosci__id_za__2CF2ADDF" Association="Self.FK__Obecnosci__id_za__2CF2ADDF">
+      <End Role="Zajecia" EntitySet="Zajecia" />
+      <End Role="Obecnosci" EntitySet="Obecnosci" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Przedmiot__id_pr__19DFD96B" Association="Self.FK__Przedmiot__id_pr__19DFD96B">
+      <End Role="Prowadzacy" EntitySet="Prowadzacy" />
+      <End Role="Przedmioty" EntitySet="Przedmioty" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Zajecia__id_prze__245D67DE" Association="Self.FK__Zajecia__id_prze__245D67DE">
+      <End Role="Przedmioty" EntitySet="Przedmioty" />
+      <End Role="Zajecia" EntitySet="Zajecia" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Zajecia__id_sali__25518C17" Association="Self.FK__Zajecia__id_sali__25518C17">
+      <End Role="Sale" EntitySet="Sale" />
+      <End Role="Zajecia" EntitySet="Zajecia" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StudenciG__id_st__282DF8C2" Association="Self.FK__StudenciG__id_st__282DF8C2">
+      <End Role="Studenci" EntitySet="Studenci" />
+      <End Role="StudenciGrupy" EntitySet="StudenciGrupy" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
