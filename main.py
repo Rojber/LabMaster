@@ -19,7 +19,10 @@ else:
     DATABASE = []
 
 ADMIN_KEY = "qwerty"
-db_handle = db_handler.db_handler()
+with open('config.json', "r") as fp:
+    config_vars = json.load(fp)
+    fp.close()
+db_handle = db_handler.db_handler(config_vars["connection_string"])
 
 
 @app.route('/api/register', methods=['POST', 'DELETE'])
@@ -84,7 +87,7 @@ def attend():
                     "from Zajecia "
                     "where ('" + str(dt_string) + "' between rozpoczecie and zakonczenie) "
                     "and (id_sali=@var1))"
-                    "insert into Obecnosci (id_studenta, id_zajec, obecnosc) values (" +str(js['student_id'])+", @var2, 1)"
+                    "update Obecnosci set obecnosc = 1 where id_studenta=" + str(js['student_id']) + " and id_zajec=@var2"
                 )
                 result = db_handle.execute_query(
                     "select imie, nazwisko from Studenci where indeks=" + str(js['student_id'])

@@ -2,8 +2,8 @@ import pyodbc
 
 
 class db_handler(object):
-    def __init__(self):
-        self.connection_string = 'Driver={SQL Server};Server=DESKTOP-025N36L;Database=LabMaster;Trusted_Connection=yes;'
+    def __init__(self, conn_string):
+        self.connection_string = conn_string
 
     def execute_query(self, query):
         conn = pyodbc.connect(self.connection_string)
