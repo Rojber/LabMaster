@@ -85,3 +85,11 @@ C:\Users\Konrad\Documents\GitHub\LabMaster\LabmasterAdminapp\LabmasterAdminapp\o
 C:\Users\Konrad\Documents\GitHub\LabMaster\LabmasterAdminapp\LabmasterAdminapp\obj\Debug\LabmasterAdminapp.csproj.CopyComplete
 C:\Users\Konrad\Documents\GitHub\LabMaster\LabmasterAdminapp\LabmasterAdminapp\obj\Debug\LabmasterAdminapp.dll
 C:\Users\Konrad\Documents\GitHub\LabMaster\LabmasterAdminapp\LabmasterAdminapp\obj\Debug\LabmasterAdminapp.pdb
+C:\Users\Konrad\Documents\GitHub\LabMaster\LabmasterAdminapp\LabmasterAdminapp\bin\ClosedXML.dll
+C:\Users\Konrad\Documents\GitHub\LabMaster\LabmasterAdminapp\LabmasterAdminapp\bin\DocumentFormat.OpenXml.dll
+C:\Users\Konrad\Documents\GitHub\LabMaster\LabmasterAdminapp\LabmasterAdminapp\bin\ExcelNumberFormat.dll
+C:\Users\Konrad\Documents\GitHub\LabMaster\LabmasterAdminapp\LabmasterAdminapp\bin\System.IO.Packaging.dll
+C:\Users\Konrad\Documents\GitHub\LabMaster\LabmasterAdminapp\LabmasterAdminapp\bin\ClosedXML.pdb
+C:\Users\Konrad\Documents\GitHub\LabMaster\LabmasterAdminapp\LabmasterAdminapp\bin\ClosedXML.xml
+C:\Users\Konrad\Documents\GitHub\LabMaster\LabmasterAdminapp\LabmasterAdminapp\bin\DocumentFormat.OpenXml.xml
+C:\Users\Konrad\Documents\GitHub\LabMaster\LabmasterAdminapp\LabmasterAdminapp\bin\ExcelNumberFormat.xml
