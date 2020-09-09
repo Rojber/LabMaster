@@ -147,6 +147,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ImportDataController.cs" />
     <Compile Include="Controllers\ObecnosciController.cs" />
     <Compile Include="Controllers\PrzedmiotyController.cs" />
     <Compile Include="Controllers\ZajeciaController.cs" />
@@ -351,9 +352,11 @@
     <Content Include="Views\Obecnosci\Edit.cshtml" />
     <Content Include="Views\Zajecia\Obecnosci.cshtml" />
     <Content Include="Views\Przedmioty\Obecnosci.cshtml" />
+    <Content Include="Views\ImportData\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="excelfolder\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

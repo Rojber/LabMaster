@@ -52,7 +52,7 @@ namespace LabmasterAdminapp.Controllers
                 przedmiotobecnosc.student_nazwisko = s.nazwisko;
                 przedmiotobecnosc.przedmiot_id = id;
                 przedmiotobecnosc.przedmiot_nazwa = db.Przedmioty.Find(id).nazwa;
-                przedmiotobecnosc.grupa = db.Przedmioty.Find(id).Zajecia.ToList().ElementAt(0).Grupy.nazwa;
+                przedmiotobecnosc.grupa = db.Przedmioty.Find(id).Zajecia.Where(x => x.Grupy.StudenciGrupy.Where(y => y.id_studenta == s.indeks).ToList().Count > 0).ToList().ElementAt(0).Grupy.nazwa;
                 var ob = obecnosci.Where(x => x.id_studenta == s.indeks).Where(y => y.Zajecia.zakonczenie < DateTime.Now);
                 przedmiotobecnosc.liczba_zajec = ob.ToList().Count;
                 przedmiotobecnosc.udzial = ob.Where(x => x.obecnosc == true).ToList().Count + ob.Where(x => x.usprawiedliwienie == true).ToList().Count;
