@@ -69,33 +69,34 @@ def registration():
 
 @app.route('/api/attendance', methods=['POST'])
 def attend():
-    try:
-        js = request.json
+    #try:
+    js = request.json
 
-        for record in DATABASE:
-            if record['id'] == js['id']:
-                print('Student ' + str(js['student_id']) + ' reports presence!')
-                now = datetime.now()
-                dt_string = now.strftime("%Y%m%d %H:%M:%S")
-                db_handle.execute_modify(
-                    "declare @var1 int "
-                    "set @var1 = (select id "
-                    "from Sale "
-                    "where nazwa='" + str(record['room']) + "')"
-                    "declare @var2 int "
-                    "set @var2 = (select id " 
-                    "from Zajecia "
-                    "where ('" + str(dt_string) + "' between rozpoczecie and zakonczenie) "
-                    "and (id_sali=@var1))"
-                    "update Obecnosci set obecnosc = 1 where id_studenta=" + str(js['student_id']) + " and id_zajec=@var2"
-                )
-                result = db_handle.execute_query(
-                    "select imie, nazwisko from Studenci where indeks=" + str(js['student_id'])
-                )
-                return json.dumps({'response': "OK", "name": result[0][0], "surname": result[0][1]}), 201
-        return json.dumps({'response': "ID NOT FOUND"}), 404
-    except:
-        return json.dumps({'response': "INTERNAL SERVER ERROR"}), 500
+    for record in DATABASE:
+        if record['id'] == js['id']:
+            print('Student ' + str(js['student_id']) + ' reports presence!')
+            now = datetime.now()
+            dt_string = now.strftime("%Y%m%d %H:%M:%S")
+            if not db_handle.execute_modify(
+                "declare @var1 int "
+                "set @var1 = (select id "
+                "from Sale "
+                "where nazwa='" + str(record['room']) + "')"
+                "declare @var2 int "
+                "set @var2 = (select id " 
+                "from Zajecia "
+                "where ('" + str(dt_string) + "' between rozpoczecie and zakonczenie) "
+                "and (id_sali=@var1))"
+                "update Obecnosci set obecnosc = 1 where id_studenta=" + str(js['student_id']) + " and id_zajec=@var2"
+            ):
+                return json.dumps({'response': "STUDENT ID NOT FOUND"}), 404
+            result = db_handle.execute_query(
+                "select imie, nazwisko from Studenci where indeks=" + str(js['student_id'])
+            )
+            return json.dumps({'response': "OK", "name": result[0][0], "surname": result[0][1]}), 201
+    return json.dumps({'response': "ID NOT FOUND"}), 404
+    #except:
+    #    return json.dumps({'response': "INTERNAL SERVER ERROR"}), 500
 
 
 @app.route('/api/info', methods=['GET'])

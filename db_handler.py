@@ -18,6 +18,10 @@ class db_handler(object):
         conn = pyodbc.connect(self.connection_string)
         cursor = conn.cursor()
         cursor.execute(query)
+        affected_rows = cursor.rowcount
         conn.commit()
         cursor.cancel()
         conn.close()
+        if affected_rows > 0:
+            return True
+        return False
